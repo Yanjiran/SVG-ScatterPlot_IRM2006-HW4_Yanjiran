@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
 
-        <title>DataVis HW4 SVG Elements</title>
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="SVG-ScatPlot_DataVis-HW4.js"></script>
-    </head>
+    <title>DataVis HW4 SVG Elements</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!-- <script src="SVG-ScatPlot_DataVis-HW4.js"></script> -->
+</head>
+
+<body>
+    <h1>DataVis HW4 Part 1: SVG Elements</h1>
+    <svg id="svg1" width="400" height="400"></svg>
     
-    <body>
-        <h1>DataVis HW4 Part 1: SVG Elements</h1>
-        <svg id="SVG1" width="400" height="400"></svg>
-        
-        <script>
-            // Hardcoded Boston Weather Data
-            const bostonYears = [2010, 2011, 2012, 2013, 2014, 2015, 2016];
-        
-            const rainInches = [49.7, 52.4, 36.8, 40.4, 45.3, 34.8, 33.1];
+    <script>
+        // Hardcoded Boston Weather Data
+        //const bostonYears = [2010, 2011, 2012, 2013, 2014, 2015, 2016];
+    
+        const rainInches = [49.7, 52.4, 36.8, 40.4, 45.3, 34.8, 33.1];
 
-            const snowInches = [49.7, 52.4, 36.8, 40.4, 45.3, 34.8, 33.1];
+        const snowInches = [49.7, 52.4, 36.8, 40.4, 45.3, 34.8, 33.1];
 
-            
+        // SVG Element
+        const SVG = d3.select("#svg1");
 
-        </script>
-    </body>
+        // Adding Cirlces to SVG Element
+        SVG.selectAll("circle")
+            .data(d3.range(2010, 2017)) // Years from 2010-2016
+            .enter().append("circle")
+            .attr("cx", d => xScale(d)) //x-axis scale
+            .attr("cy", (d, i) => yScale(rainInches[i]))
+            .attr("r", (d, i) => snowInches[i])
+            .attr("fill", "steelblue");
+    </script>
+</body>
 
 </html>
 
