@@ -16,36 +16,47 @@
     
     <script>
         // Hardcoded Boston Weather Data
-        //const bostonYears = [2010, 2011, 2012, 2013, 2014, 2015, 2016];
-    
-        const rainInches = [49.7, 52.4, 36.8, 40.4, 45.3, 34.8, 33.1];
+            /* const bostonYears = [2010, 2011, 2012, 2013, 2014, 2015, 2016]; 
+            const rainInches = [49.7, 52.4, 36.8, 40.4, 45.3, 34.8, 33.1];
+            const snowInches = [42.4, 60, 12.2, 71.4, 50.2, 108.6, 41.2]; */
 
-        const snowInches = [49.7, 52.4, 36.8, 40.4, 45.3, 34.8, 33.1];
+            // Only using 3 data points
+        const bostonYears = [2010, 2011, 2012]; 
+        const rainInches = [49.7, 52.4, 36.8];
+        const snowInches = [42.4, 60, 12.2]; 
+
 
         // SVG Element
         const SVG = d3.select("#svg1");
 
+        // Adding Cirlces to SVG Element
+        SVG.selectAll("circle")
+            //.data(d3.range(2010, 2017)) // Years from 2010-2016
+            .data(rainInches)
+            .enter().append("circle")
+            .attr("cx", (d, i) => 120 * (i + 1)) //x-axis scale
+            .attr("cy", (d, i) => 300 - 4 * d) // y-axis
+            .attr("r", (d, i) => snowInches[i]) // radius
+            
+            // Color
+            .attr("fill", (d, i) => {
+            const year = bostonYears[i];
+            return year === 2010 ? 'blue' : (year === 2011 ? 'red' : 'green');}) // placeholder color (move to CSS file later and change color for each year)
+
+
+        
+        /* doesnt work, delete later
         // x-axis scale (years)
         const xScale = d3.scaleBand()
             //.domain(d3.range(2010, 2017))
-            .domain([2011, 2012, 2013]) 
-            .range([20, 140, 260]); // 120 units apart
-
+            .domain(bostonYears) 
+            .range([20, 400, 780]); // adjust values so no overlap - 380 apart
 
         // y-axis scale (rainfall)
         const yScale = d3.scaleLinear()
             .domain([0, d3.max(rainInches)])
-            .range([400, 0]); // Higher y values for lower rain values
-
-        // Adding Cirlces to SVG Element
-        SVG.selectAll("circle")
-            //.data(d3.range(2010, 2017)) // Years from 2010-2016
-            .data([2011, 2012, 2013])
-            .enter().append("circle")
-            .attr("cx", d => xScale(d)) //x-axis scale
-            .attr("cy", (d, i) => yScale(rainInches[i]))
-            .attr("r", (d, i) => snowInches[i])
-            .attr("fill", "steelblue"); // placeholder color (move to CSS file later and change color for each year)
+            .range([300-(4*rainInches), ]); // Higher y values for lower rain values
+        */
     </script>
 </body>
 
